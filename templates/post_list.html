@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <button class="btn btn-success col-md-offset-11 col-sm-offset-11 col-xs-offset-11"><a href="{% url 'post_add' %}">PostADD</a></button>
+    </div>
+    <div class="row">
+        {% for post in posts %}
+            <div class="header col-md-4 col-sm-6 col-xs-12">
+                <h2><a href="">{{ post.title }}</a></h2>
+                <p>{{ post.text }}</p>
+                <p>{{ post.created_date }}</p>
+            </div>
+
+        {% endfor %}
+    </div>
+{% endblock %}

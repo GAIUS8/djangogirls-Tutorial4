@@ -1,7 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
 from blog.models import Post
+from .forms import PostCreateForm
+from django.contrib.auth.models import User
+
+user = User.objects.first()
 
 
 def main_view(request):
@@ -10,7 +13,24 @@ def main_view(request):
     context = {
         'posts': post
     }
-    return render(request, 'base/base.html', context)
+    return render(request, 'post_list.html', context)
+
 
 def post_add_view(request):
-    return HttpResponse('post_add_view가 연결되었습니다.')
+    if request.method == 'GET':
+        form = PostCreateForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'post_add.html', context)
+    elif request.method == 'POST':
+        form = PostCreateForm(request.POST)
+
+        if form.is_valid():
+            Post.objects.create(
+                author=user,
+                title=form.cleaned_data['title'],
+                text=form.cleaned_data['text'],
+            )
+
+        return redirect('post_main')

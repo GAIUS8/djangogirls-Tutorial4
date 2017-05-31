@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,18 +7,18 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Myblog</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 </head>
 <body>
-<div class="row">
-    <div class="col-md-2 col-sm-1"></div>
-    <h1 class="col-md-8 col-sm-10 col-xs-10">오늘은 즐거운 하루</h1>
-    <div class="col-md-2 col-sm-1"></div>
-</div>
-<div class="row">
-    {% for post in posts %}
-        <div class="col-md-8 col-sm-10 col-xs12">{{ post.title }}</div>
-    {% endfor %}
-    <p>{{ posts.title }}</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 col-sm-1"></div>
+        <h1 class="col-md-8 col-sm- 10col-xs-12"><a href="{% url 'post_main' %}">오늘은 즐거운 하루</a></h1>
+        <div class="col-md-2 col-sm-1"></div>
+    </div>
+    {% block content %}
+    {% endblock %}
 </div>
 </body>
 </html>
